@@ -1,0 +1,120 @@
+package com.foviel.datastructures.streams;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ * Created by Jason on 08/06/2017.
+ */
+public class PersonExample {
+
+    List<Person> people;
+
+    @BeforeEach
+    void beforeEach() {
+         people = Arrays.asList(new Person("Tom", "Jones"), new Person("Silly", "Billy"), new Person
+                ("Edward", "Woodward"), new Person("Tom", "Thumb"),
+                 new Person("Alpha", "Beta"),
+                 new Person("Alpha", "Charlie"),
+                 new Person("Alpha", "Potato"),
+                 new Person("Alpha", "Beta"),
+                 new Person("Banana", "Beta")
+                 );
+    }
+
+    @Test
+    public void go()
+    {
+
+              Object o =  people.stream()
+                .filter(x -> x.firstName.startsWith("A"))
+                .collect(Collectors.partitioningBy(p -> p.lastName.startsWith("B")))
+                        ;
+                //.collect(Collectors.toMap( p-> p.lastName, p -> p.firstName))
+                //.collect(Collectors.groupingBy(p -> p.firstName))
+                //.collect(Collectors.toMap( p-> p.lastName, p -> p.firstName))
+                //.collect(Collectors.groupingBy(p -> p.firstName))
+                //.map(x -> (x.firstName + "-" + x.lastName))
+                //.collect(Collectors.joining(", ", "{", "}"))
+        ;
+
+        System.out.println(o);
+
+    }
+
+    public static boolean isPrime(long input)
+    {
+        return input > 1 && LongStream.range(2, input).noneMatch(x -> input % x == 0);
+    }
+
+    static double computeFunctional(int n, int k)
+    {
+        return Stream.iterate(n, e -> e+1).filter(PersonExample::isPrime).limit(k).mapToDouble(Math::sqrt).sum();
+    }
+
+
+    @Test
+    void findSquareRoot()
+    {
+        // find the total of the square roots of the first k prime numbers starting from n
+        assertEquals(1759.1739933801748, computeFunctional(51, 101));
+    }
+
+    @Test
+    void findFirst100DigitFibonacci()
+    {
+
+        BigInteger[] result =
+                Stream
+                .iterate(
+                            new BigInteger[]{ ONE, ONE, ONE },
+                            p->new BigInteger[]{ p[1], p[0].add(p[1]), p[2].add(ONE) }
+                )
+                .filter( x -> x[2].longValue() > 7000)
+                .findFirst().get();
+
+                System.out.println("first 20 digit fibonacci is " + result[0] + " at position " + result[2]);
+
+    }
+
+    @Test
+    void testIsPrime() {
+
+        assertTrue(IntStream.range(2, 1327).noneMatch(x -> 1327 % x == 0));
+        assertFalse(IntStream.range(2, 1337).noneMatch(x -> 1327 % x == 0));
+
+        assertTrue(isPrimeBI(BigInteger.valueOf(1327)));
+        assertFalse(isPrimeBI(BigInteger.valueOf(1337)));
+
+
+    }
+
+    boolean isPrimeLong(long testme)
+    {
+        return LongStream.range(2, testme).noneMatch(x -> testme%x == 0);
+    }
+
+    boolean isPrimeBI(BigInteger testme)
+    {
+        return Stream.iterate(
+                BigInteger.valueOf(2),
+                x -> x.add(ONE))
+                .filter(x -> testme.mod(x).equals(ZERO))
+                .findFirst().get().equals(testme);
+    }
+
+}

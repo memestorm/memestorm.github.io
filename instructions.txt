@@ -1,0 +1,35 @@
+
+
+React + spring - follow the guide at https://www.blackpepper.co.uk/blog/using-create-react-app-with-spring
+
+Create a spring boot project using initializer at http://start.spring.io/
+This needs to include "Web" support, plus any other tech
+
+Instead create a react frontend with admin on rest (wrapper for create-react-app) at https://marmelab.com/admin-on-rest/Tutorial.html
+
+React admin under spring, add in web3j support for ethereum - https://github.com/web3j/web3j-spring-boot-starter
+
+Write the simplest page for create delivery/accept delivery
+
+Wire the page widgets up to the web3j API
+
+
+
+FIXES:
+application.properties
+# JJJ - needed to prevent testcases failing
+spring.datasource.url=jdbc:mysql://localhost/Test_DB
+
+class path resource [processes/] cannot be resolved to URL because it does not exist
+pom.xml
+
+
+
+create a private ethereum cluster (can all be on one virtual machine) -
+
+Write a solidity contract to reflect the supply chain BPM (can be just a state machine for starters)
+
+create some widgets to CRUD the contracts
+
+Hosting?
+
