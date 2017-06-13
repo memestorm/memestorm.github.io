@@ -1,0 +1,6 @@
+StampedLock is a major improvement over existing lock implementations especially with increasing numbers of reader threads.
+StampedLock has a complex API. It is very easy to mistakenly call the wrong method for locking actions.
+Synchronised is a good general purpose lock implementation when contention is from only 2 threads.
+ReentrantLock is a good general purpose lock implementation when thread counts grow as previously discovered.
+Choosing to use ReentrantReadWriteLock should be based on careful and appropriate measurement. As with all major decisions, measure and make decisions based on data.
+Lock-free implementations can offer significant throughput advantages over lock-based algorithms.
