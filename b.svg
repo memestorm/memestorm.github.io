@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="595.28px" height="841.89px" viewBox="0 0 595.28 841.89" enable-background="new 0 0 595.28 841.89" xml:space="preserve">
+<script type="text/javascript">
+    // <![CDATA[
+
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+function json(response) {
+  return response.json()
+}
+
+    function change(layer, evt) {
+      var target = document.getElementById(layer);
+      var viz = target.getAttribute("opacity");
+
+      if (viz == 0) {
+	viz = 1;	
+      } else {
+        viz = 0;
+      }
+
+      target.setAttribute("opacity",viz);
+   }
+   // ]]>
+  </script>
+<g id="Layer_1">
+	<path id="e" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M83.183,49.507c0,6.627-5.373,12-12,12H61.028 c-6.627,0-12-5.373-12-12V39.352c0-6.627,5.373-12,12-12h10.155c6.627,0,12,5.373,12,12V49.507z"
+ onclick="
+    document.getElementById('a_layer').setAttribute('opacity', 0);
+    document.getElementById('b_layer').setAttribute('opacity', 0);
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(status)
+  .then(json)
+  .then(function(data) {
+    console.log('Request succeeded with JSON response', data);
+    document.getElementById('a_layer').setAttribute('opacity', 1);
+
+  }).catch(function(error) {
+    console.log('Request failed', error);
+    document.getElementById('b_layer').setAttribute('opacity', 1);
+  });
+"
+
+/>
+	<path id="d" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M129.205,49.507c0,6.627-5.373,12-12,12H107.05 c-6.627,0-12-5.373-12-12V39.352c0-6.627,5.373-12,12-12h10.155c6.627,0,12,5.373,12,12V49.507z"
+ onclick="change('b_layer', evt)"
+/>
+	<path id="c" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M175.227,49.507c0,6.627-5.373,12-12,12h-10.155 c-6.627,0-12-5.373-12-12V39.352c0-6.627,5.373-12,12-12h10.155c6.627,0,12,5.373,12,12V49.507z"
+ onclick="change('c_layer', evt)"
+/>
+</g>
+<g id="a_layer">
+	<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="202.549,242.845 147.612,229.802 105.723,267.664 
+		101.151,211.385 52.198,183.246 104.31,161.507 115.944,106.254 152.723,149.098 208.866,143.088 179.485,191.307 	" />
+</g>
+<g id="b_layer">
+	<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="243.395,161.507 207.882,153.48 181.136,178.184 
+		177.796,141.929 146.037,124.126 179.485,109.746 186.603,74.04 210.615,101.408 246.773,97.143 228.165,128.437 	" />
+</g>
+<g id="c_layer">
+	<polygon fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" points="246.773,228.057 205.732,213.371 170.368,238.853 
+		171.653,195.283 136.49,169.523 178.324,157.282 191.957,115.879 216.527,151.884 260.116,152.055 233.466,186.548 	"  />
+</g>
+</svg>
